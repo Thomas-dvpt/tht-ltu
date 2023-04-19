@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const acorn = require('acorn');
 
-const sourceFile = path.join(__dirname, '..', 'vscode', 'dev-vscode.mjs');
-const targetDir = path.join(__dirname, '..', '..', 'release', `LTU_Scripts-${getFormattedDate()}`);
+const sourceFile = path.join(__dirname, '..', 'dev','vscode', 'dev-vscode.mjs');
+const targetDir = path.join(__dirname, '..', 'release', `LTU_Scripts-${getFormattedDate()}`);
 
 fs.readFile(sourceFile, 'utf8', (err, data) => {
     if (err) {

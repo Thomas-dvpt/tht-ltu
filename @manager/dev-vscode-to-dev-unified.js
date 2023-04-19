@@ -11,8 +11,8 @@
  const fs = require('fs');
  const path = require('path');
  
- const sourceFile = path.join(__dirname, '..', 'vscode', 'dev-vscode.mjs');
- const targetFile = path.join(__dirname, '..', 'unified', `dev-unified-${getFormattedDate()}.js`);
+ const sourceFile = path.join(__dirname, '..', 'dev', 'vscode', 'dev-vscode.mjs');
+ const targetFile = path.join(__dirname, '..', 'dev', 'unified', `dev-unified-${getFormattedDate()}.js`);
  
  fs.readFile(sourceFile, 'utf8', (err, data) => {
      if (err) {
