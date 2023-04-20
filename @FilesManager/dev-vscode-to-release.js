@@ -11,7 +11,7 @@ fs.readFile(sourceFile, 'utf8', (err, data) => {
         return;
     }
 
-    const ast = acorn.parse(data, { sourceType: 'module' });
+    const ast = acorn.parse(data, { sourceType: 'module', ecmaVersion: 2020 });
     const exportedFunctions = ast.body.filter(node => node.type === 'ExportNamedDeclaration' && node.declaration.type === 'FunctionDeclaration');
 
     fs.mkdir(targetDir, { recursive: true }, (err) => {
@@ -54,5 +54,5 @@ function getFormattedDate() {
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
-    return `${year}${month}${day}-${hours}:${minutes}`;
+    return `${year}${month}${day}-${hours}h${minutes}`;
 }
