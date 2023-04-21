@@ -413,27 +413,3 @@ export function waitUiElement(elementPath, timeout = 10000) {
 
 
 
-//! NE PAS COPIER DANS WINCC UNIFIED
-logToVsCode = true ;
-logToUnified = false ;
-logDebug = true ;
-let result;
-
-//result = _TemplateFunction("param1", 42);
-//console.log("Résultat = ", result);
-//configAdmin();
-//result = configNavigation();
-//console.log("Résultat = ", result);
-//initOS();
-//logTrace("maFonction", "success", "Message de test");
-//result = getGlobalVar("logToVsCode");
-//console.log("Résultat = ", result);
-//setGlobalVar("logToVsCode", true);
-//result = getGlobalVar("logToVsCode");
-//console.log("Résultat = ", result);
-//setNavigation();
-//setSubNavigation('@THT_RD');
-
-
-  //!
-
