@@ -1,14 +1,3 @@
-/**
-     * Suivi des modifications :
-     *
-     * Version   | Date      | Société            | Auteur                               | Modification(s)
-     * 01.00.00  | 04/2023   | AgroMousquetaires  | thomas.heurtault@mousquetaires.com   | Version initiale
-     *
-     * Description de la fonction :
-     * GLOBAL TAGS
-     *
-
-*/
 
 /**
      * Suivi des modifications :
@@ -255,7 +244,7 @@ export async function setNavigation() {
 
     //TODO :  Écrire le code ici
       for (let i = 0; i <= maxBP; i++) {
-          const thisBP = await waitUiElement(`${screenPath}${prefixBP}${i}`, 5000); // Attendre 5 secondes max. 
+          const thisBP = await waitForUiElement(`${screenPath}${prefixBP}${i}`, 5000); // Attendre 5 secondes max. 
           if (! thisBP){
             throw new Error(`l'objet ${screenPath}${prefixBP} est introuvable. Vérifier le le chemin dans le script`);
           }
@@ -270,11 +259,11 @@ export async function setNavigation() {
           
               if ('dropdown' in menu[i]) {
               let thisSubMenu = menu[i].dropdown;
-              thisBP.Graphic = HMIRuntime.Resources.Graphics(`GraphicCollection.arrow_drop_down_white_48dp`);
-              thisBP.AlternateGraphic = HMIRuntime.Resources.Graphics(`GraphicCollection.arrow_drop_down_black_48dp`);
+              thisBP.Graphic = `GraphicCollection.arrow_drop_down_white_48dp`;
+              thisBP.AlternateGraphic = `GraphicCollection.arrow_drop_down_black_48dp`;
               }else{
-              thisBP.Graphic = undefined;
-              thisBP.AlternateGraphic = undefined;}
+              thisBP.Graphic = ``;
+              thisBP.AlternateGraphic = ``;}
           
           }else{
           thisBP.Visible = false;
@@ -336,7 +325,7 @@ export async function setSubNavigation(linkToFind) {
 
     
           for (let i = 0; i < maxBP; i++) {
-              const thisBP = await waitUiElement(`/POP_SubNavigation/${prefixBP}${i}`, 5000); // Attendre 5 secondes max.   
+              const thisBP = await waitForUiElement(`/POP_SubNavigation/${prefixBP}${i}`, 5000); // Attendre 5 secondes max.   
               if (thisDropDown.length > i){
                   let thisLabel   = thisDropDown[i].label;
                   let thisLink    = thisDropDown[i].link;
@@ -349,12 +338,12 @@ export async function setSubNavigation(linkToFind) {
                   // Vérifie s'il y à à nouveau un sous-menu
                   if ('dropdown' in thisDropDown[i]) {
                   let thisSubMenu =thisDropDown[i].dropdown;
-                  thisBP.Graphic = HMIRuntime.Resources.Graphics(`GraphicCollection.arrow_drop_down_white_48dp`);
-                  thisBP.AlternateGraphic = HMIRuntime.Resources.Graphics(`GraphicCollection.arrow_drop_down_black_48dp`);
+                  thisBP.Graphic = `GraphicCollection.arrow_drop_down_white_48dp`;
+                  thisBP.AlternateGraphic = `GraphicCollection.arrow_drop_down_black_48dp`;
                   }else{
-                  thisBP.Graphic = undefined;
-                  thisBP.AlternateGraphic = undefined;}
-              
+                  thisBP.Graphic = ``;
+                  thisBP.AlternateGraphic = ``;}
+
               }else{
               thisBP.Visible = false;
               }
@@ -378,10 +367,9 @@ export async function setSubNavigation(linkToFind) {
   }
 }
 
-  
 //?-------------------------------------------------------------------------
 
-export function waitUiElement(elementPath, timeout = 10000) {
+export function waitForUiElement(elementPath, timeout = 10000) {
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
     const intervalId =  HMIRuntime.Timers.SetInterval(() => {
@@ -399,14 +387,6 @@ export function waitUiElement(elementPath, timeout = 10000) {
 }
 
 //?-------------------------------------------------------------------------
-
-
-
-
-  
-
-
-
 
 
 
