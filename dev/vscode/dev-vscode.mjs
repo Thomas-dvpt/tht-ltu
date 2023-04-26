@@ -73,15 +73,68 @@ export function configNavigation() {
    */
   try {
       //TODO :  Écrire le code ici
-      const menu = [
+      const basic = [
           { label: 'Accueil', link: '@Home', access: 'HMI Monitor' },
-          {
-           label: 'THT_RD', link: '@THT_RD', access: 'HMI Administrator', dropdown: [
-                    { label: 'Divers', link: '_Divers', access: 'HMI Administrator' },
-                    { label: 'Archivage', link: 'Test_Archivage', access: 'HMI Administrator' },
-                    { label: 'OS', link: 'admin_OS', access: 'HMI Administrator' },],},
-          { label: 'label', link: 'link', access: '' },
-      ];
+         
+           ];
+
+      //? MENU EXEMPLE - THOMAS 2023-04
+      const exemple = [ {label: 'Accueil', link: '@Home', access: 'HMI Monitor' },
+                        {label: 'Menu A', link: 'Menu_Test_A', access: 'HMI Administrator', dropdown: [
+                                { label: 'Menu A-1', link: 'Menu_Test_A_1', access: 'HMI Administrator', dropdown: [
+                                        {label: 'Menu A-1-1', link: 'Menu_Test_A_1_1', access: 'HMI Administrator'},
+                                        {label: 'Menu A-1-2', link: 'Menu_Test_A_1_2', access: 'HMI Administrator'},
+                                        {label: 'Menu A-1-3', link: 'Menu_Test_A_1_3', access: 'HMI Administrator'},
+                                        {label: 'Menu A-1-4', link: 'Menu_Test_A_1_4', access: 'HMI Administrator'},
+                                        {label: 'Menu A-1-5', link: 'Menu_Test_A_1_5', access: 'HMI Administrator'},
+                                        {label: 'Menu A-1-6', link: 'Menu_Test_A_1_6', access: 'HMI Administrator', dropdown :[
+                                              { label: 'Menu A-2', link: 'Menu_Test_A_2', access: 'HMI Administrator'},
+                                              { label: 'Menu A-3', link: 'Menu_Test_A_3', access: 'HMI Administrator'},
+                                              { label: 'Menu A-4', link: 'Menu_Test_A_4', access: 'HMI Administrator'},
+                                              { label: 'Menu A-5', link: 'Menu_Test_A_5', access: 'HMI Administrator'},
+                                              { label: 'Menu A-6', link: 'Menu_Test_A_6', access: 'HMI Administrator'},
+                                              { label: 'Menu A-7', link: 'Menu_Test_A_7', access: 'HMI Administrator'},
+                                              { label: 'Menu A-8', link: 'Menu_Test_A_8', access: 'HMI Administrator'},],},],},
+                                { label: 'Menu A-2', link: 'Menu_Test_A_2', access: 'HMI Administrator'},
+                                { label: 'Menu A-3', link: 'Menu_Test_A_3', access: 'HMI Administrator'},
+                                { label: 'Menu A-4', link: 'Menu_Test_A_4', access: 'HMI Administrator'},
+                                { label: 'Menu A-5', link: 'Menu_Test_A_5', access: 'HMI Administrator'},
+                                { label: 'Menu A-6', link: 'Menu_Test_A_6', access: 'HMI Administrator'},
+                                { label: 'Menu A-7', link: 'Menu_Test_A_7', access: 'HMI Administrator'},
+                                { label: 'Menu A-8', link: 'Menu_Test_A_8', access: 'HMI Administrator'},],},
+                        {label: 'Menu B', link: 'Menu_Test_B', access: 'HMI Administrator'},
+                        {label: 'Menu C', link: 'Menu_Test_C', access: 'HMI Administrator', dropdown: [
+                                { label: 'Menu C-1', link: 'Menu_Test_C_1', access: 'HMI Administrator',dropdown: [
+                                        {label: 'Menu C-1-1', link: 'Menu_Test_C_1_1', access: 'HMI Administrator'},],},
+                                { label: 'Menu C-2', link: 'Menu_Test_C_2', access: 'HMI Administrator',dropdown: [
+                                        {label: 'Menu C-2-1', link: 'Menu_Test_C_2_1', access: 'HMI Administrator'},],},],},
+                          {label: 'Menu D', link: 'Menu_Test_D', access: 'HMI Administrator'},  
+                    ];
+
+        //? MENU TEST - THOMAS 2023-04                
+        const thomas = [ {label: 'Accueil', link: '@Home', access: 'HMI Monitor' }];
+
+
+      const menuID = Tags("RuntimeSettings.menuID").Read();
+      let menu = null;
+      switch (menuID) {
+        case 1:
+            menu = basic;
+            logTrace(configNavigation.name, 'debug', `menu = basic`);
+            break;
+        case 2:
+          menu = exemple;
+          logTrace(configNavigation.name, 'debug',`menu = exemple`);
+            break;
+        case 4:
+          menu = thomas;
+          logTrace(configNavigation.name, 'debug',`menu = thomas`);
+            break;
+        default:
+            menu = basic;
+            logTrace(configNavigation.name, 'debug', `menu = basic`);
+            break;
+        }
 
       // Tracer l'exécution de la fonction
       const messageLog = `Menu : ${JSON.stringify(menu)}`;
@@ -257,13 +310,15 @@ export async function setNavigation() {
               //thisBP.Authorization = thisAccess; //! Ne fonctionne pas pour le moment
               thisBP.Visible = true;
           
-              if ('dropdown' in menu[i]) {
-              let thisSubMenu = menu[i].dropdown;
-              thisBP.Graphic = `GraphicCollection.arrow_drop_down_white_48dp`;
-              thisBP.AlternateGraphic = `GraphicCollection.arrow_drop_down_black_48dp`;
-              }else{
-              thisBP.Graphic = ``;
-              thisBP.AlternateGraphic = ``;}
+              if(i>0){
+                if ('dropdown' in menu[i]) {
+                  let thisSubMenu = menu[i].dropdown;
+                  thisBP.Graphic = `GraphicCollection.arrow_drop_down_white_48dp`;
+                  thisBP.AlternateGraphic = `GraphicCollection.arrow_drop_down_black_48dp`;
+                }else{
+                  thisBP.Graphic = ``;
+                  thisBP.AlternateGraphic = ``;
+                }}
           
           }else{
           thisBP.Visible = false;
@@ -298,21 +353,55 @@ export async function setSubNavigation(linkToFind) {
    * @param {string} linkToFind - Lien pour trouver l'élément de menu correspondant
    * @throws {Error} - Erreur qui peut être levée en cas de problème lors de l'exécution de la fonction
    */
+   async function findMenuItem(menu, linkToFind, parentItem = null) {
+    /**
+     * Suivi des modifications :
+     *
+     * Version   | Date      | Société            | Auteur                               | Modification(s)
+     * 01.00.00  | 04/2023   | AgroMousquetaires  | thomas.heurtault@mousquetaires.com   | Version initiale
+     *
+     * Description de la fonction :
+     * Cette fonction parcourt récursivement la structure du menu pour trouver l'élément de menu correspondant
+     * au lien passé en paramètre (linkToFind) et retourne cet élément, avec un élément parent s'il existe. 
+     * Elle est utilisée principalement pour la configuration des boutons de sous-navigation et le bouton de retour
+     * au menu parent.
+     * 
+     * @param {Array} menu - La structure du menu à parcourir pour trouver l'élément correspondant
+     * @param {string} linkToFind - Lien pour trouver l'élément de menu correspondant
+     * @param {Object|null} parentItem - L'élément de menu parent, si existant (par défaut : null)
+     * @returns {Object|null} - Retourne l'élément de menu trouvé (avec l'élément parent s'il existe) ou null si aucun élément ne correspond au lien
+     * @throws {Error} - Erreur qui peut être levée en cas de problème lors de l'exécution de la fonction
+     */
+     for (const menuItem of menu) {
+      if (menuItem.link === linkToFind) {
+        const foundItem = Object.assign({}, menuItem);
+        if (parentItem) {
+          foundItem.parent = parentItem;
+        }
+        return foundItem;
+      }
+      if (menuItem.dropdown) {
+        const foundItem = await findMenuItem(menuItem.dropdown, linkToFind, menuItem);
+        if (foundItem) {
+          return foundItem;
+        }
+      }
+    }
+    return null;
+  }
   
       const menu = await configNavigation();
       let thisItem = null;
       const screenName = "@SubNavigation";
       const prefixBP = `BP_SubNav_`;
-      const maxBP = 8 ; // Nombre de boutons maximum dans la vue "templateSubNavigation"
+      const maxBP = 9 ; // Nombre de boutons maximum dans la vue "templateSubNavigation"
       logTrace(setSubNavigation.name,'debug',`itemLink = ${linkToFind}, thisItem = ${thisItem},`);
 
   try {
-      for (const menuItem of menu) {
-          if (menuItem.link === linkToFind) {
-            thisItem = menuItem;
-            logTrace(setSubNavigation.name,'debug',`thisItem = ${linkToFind}, thisItem =  ${JSON.stringify(thisItem)},`);
-            break;
-          }}
+          thisItem = await findMenuItem(menu, linkToFind);
+          if (thisItem.length > maxBP) {
+            logTrace(setNavigation.name, 'warning', "Le nombre de menus est supérieur au nombre de boutons disponibles.");
+        }
           if (!thisItem) {
             logTrace(setSubNavigation.name, 'warning', `Aucun élément de menu trouvé pour le lien ${linkToFind}`);
           return;
@@ -320,7 +409,7 @@ export async function setSubNavigation(linkToFind) {
 
       if ('dropdown' in thisItem) {
           const thisDropDown = thisItem.dropdown;
-          logTrace(setSubNavigation.name,'debug',`Il y a un sous-menu dans  ${linkToFind} :  ${JSON.stringify(thisDropDown)}`);
+          logTrace(setSubNavigation.name,'debug',`Il y a un sous-menu dans  ${linkToFind} `);//:  ${JSON.stringify(thisDropDown)}
           const thisPopup = UI.SysFct.OpenScreenInPopup(`POP_SubNavigation`,screenName,false,``,0, 60 ,true,undefined);
 
     
@@ -338,8 +427,8 @@ export async function setSubNavigation(linkToFind) {
                   // Vérifie s'il y à à nouveau un sous-menu
                   if ('dropdown' in thisDropDown[i]) {
                   let thisSubMenu =thisDropDown[i].dropdown;
-                  thisBP.Graphic = `GraphicCollection.arrow_drop_down_white_48dp`;
-                  thisBP.AlternateGraphic = `GraphicCollection.arrow_drop_down_black_48dp`;
+                  thisBP.Graphic = `GraphicCollection.arrow_forward_black_48dp`;
+                  thisBP.AlternateGraphic = `GraphicCollection.arrow_forward_white_48dp`;
                   }else{
                   thisBP.Graphic = ``;
                   thisBP.AlternateGraphic = ``;}
@@ -348,7 +437,22 @@ export async function setSubNavigation(linkToFind) {
               thisBP.Visible = false;
               }
             }
-           
+
+            const currentMenuBP = await waitForUiElement(`/POP_SubNavigation/BP_CurrentMenu`, 200); // Attendre 200ms max.
+            currentMenuBP.Text = thisItem.label;
+            currentMenuBP.AlternateText = thisItem.link;
+            currentMenuBP.Visible = true;
+            const backMenuBP = await waitForUiElement(`/POP_SubNavigation/BP_BackMenu`, 200); // Attendre 200ms max.
+            if (thisItem.parent) { // Si un élément parent existe, configurez le bouton backMenuBP pour revenir à ce niveau
+              backMenuBP.Text = thisItem.parent.label;
+              backMenuBP.AlternateText = thisItem.parent.link;
+              backMenuBP.Visible = true;
+            } else { // Sinon, masquez le bouton backMenuBP
+              backMenuBP.Visible = false;
+            }
+          
+
+
       } else {
           logTrace(setSubNavigation.name,'debug',`Pas de sous-menu dans ${thisItem}`);
       }
@@ -369,7 +473,24 @@ export async function setSubNavigation(linkToFind) {
 
 //?-------------------------------------------------------------------------
 
-export function waitForUiElement(elementPath, timeout = 10000) {
+export function waitForUiElement(elementPath, timeout = 10000){
+/**
+ * Suivi des modifications :
+ *
+ * Version   | Date      | Société            | Auteur                               | Modification(s)
+ * 01.00.00  | 04/2023   | AgroMousquetaires  | thomas.heurtault@mousquetaires.com   | Version initiale
+ *
+ * Description de la fonction :
+ * Cette fonction attend qu'un élément d'interface utilisateur (UI) soit disponible sur l'écran actif
+ * en fonction du chemin de l'élément spécifié (elementPath). La fonction vérifie périodiquement
+ * l'existence de l'élément jusqu'à ce qu'il soit trouvé ou que le délai d'attente (timeout) soit dépassé.
+ * 
+ * @param {string} elementPath - Le chemin de l'élément UI à rechercher sur l'écran actif
+ * @param {number} [timeout=10000] - Le délai d'attente maximal en millisecondes (par défaut : 10000 ms)
+ * @returns {Promise<Object>} - Retourne une promesse qui résout l'élément trouvé ou rejette une erreur si le délai est dépassé
+ * @throws {Error} - Erreur qui peut être levée en cas de problème lors de l'exécution de la fonction
+ */
+
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
     const intervalId =  HMIRuntime.Timers.SetInterval(() => {
