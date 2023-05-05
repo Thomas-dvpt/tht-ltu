@@ -56,8 +56,7 @@ export function _TemplateFunction(param1, param2) {
     throw error;
   }
 }
-
-//?-------------------------------------------------------------------------  
+//?-------------------------------------------------------------------------
 export function configNavigation() {
   /**
    * Suivi des modifications :
@@ -73,49 +72,60 @@ export function configNavigation() {
    */
   try {
       //TODO :  Écrire le code ici
+
+      //? MENU PAR DEFAUT
       const basic = [
           { label: 'Accueil', link: '@Home', access: 'HMI Monitor' },
          
            ];
 
+      //? MENU GARIEN
+      const gardien = [
+        { label: 'Accueil', link: '@Home', access: 'HMI Monitor' },
+        { label: 'Alarmes', link: 'Alarme', access: 'HMI Monitor'}
+       
+         ];
+
+      //? MENU PRODUCTION 1 
+      const production_1 = [
+        { label: 'Accueil', link: '@Home', access: 'HMI Monitor' }
+         ];
+
       //? MENU EXEMPLE - THOMAS 2023-04
-      const exemple = [ {label: 'Accueil', link: '@Home', access: 'HMI Monitor' },
-                        {label: 'Menu A', link: 'Menu_Test_A', access: 'HMI Administrator', dropdown: [
-                                { label: 'Menu A-1', link: 'Menu_Test_A_1', access: 'HMI Administrator', dropdown: [
-                                        {label: 'Menu A-1-1', link: 'Menu_Test_A_1_1', access: 'HMI Administrator'},
-                                        {label: 'Menu A-1-2', link: 'Menu_Test_A_1_2', access: 'HMI Administrator'},
-                                        {label: 'Menu A-1-3', link: 'Menu_Test_A_1_3', access: 'HMI Administrator'},
-                                        {label: 'Menu A-1-4', link: 'Menu_Test_A_1_4', access: 'HMI Administrator'},
-                                        {label: 'Menu A-1-5', link: 'Menu_Test_A_1_5', access: 'HMI Administrator'},
-                                        {label: 'Menu A-1-6', link: 'Menu_Test_A_1_6', access: 'HMI Administrator', dropdown :[
-                                              { label: 'Menu A-2', link: 'Menu_Test_A_2', access: 'HMI Administrator'},
-                                              { label: 'Menu A-3', link: 'Menu_Test_A_3', access: 'HMI Administrator'},
-                                              { label: 'Menu A-4', link: 'Menu_Test_A_4', access: 'HMI Administrator'},
-                                              { label: 'Menu A-5', link: 'Menu_Test_A_5', access: 'HMI Administrator'},
-                                              { label: 'Menu A-6', link: 'Menu_Test_A_6', access: 'HMI Administrator'},
-                                              { label: 'Menu A-7', link: 'Menu_Test_A_7', access: 'HMI Administrator'},
-                                              { label: 'Menu A-8', link: 'Menu_Test_A_8', access: 'HMI Administrator'},],},],},
-                                { label: 'Menu A-2', link: 'Menu_Test_A_2', access: 'HMI Administrator'},
-                                { label: 'Menu A-3', link: 'Menu_Test_A_3', access: 'HMI Administrator'},
-                                { label: 'Menu A-4', link: 'Menu_Test_A_4', access: 'HMI Administrator'},
-                                { label: 'Menu A-5', link: 'Menu_Test_A_5', access: 'HMI Administrator'},
-                                { label: 'Menu A-6', link: 'Menu_Test_A_6', access: 'HMI Administrator'},
-                                { label: 'Menu A-7', link: 'Menu_Test_A_7', access: 'HMI Administrator'},
-                                { label: 'Menu A-8', link: 'Menu_Test_A_8', access: 'HMI Administrator'},],},
-                        {label: 'Menu B', link: 'Menu_Test_B', access: 'HMI Administrator'},
-                        {label: 'Menu C', link: 'Menu_Test_C', access: 'HMI Administrator', dropdown: [
-                                { label: 'Menu C-1', link: 'Menu_Test_C_1', access: 'HMI Administrator',dropdown: [
-                                        {label: 'Menu C-1-1', link: 'Menu_Test_C_1_1', access: 'HMI Administrator'},],},
-                                { label: 'Menu C-2', link: 'Menu_Test_C_2', access: 'HMI Administrator',dropdown: [
-                                        {label: 'Menu C-2-1', link: 'Menu_Test_C_2_1', access: 'HMI Administrator'},],},],},
-                          {label: 'Menu D', link: 'Menu_Test_D', access: 'HMI Administrator'},  
-                    ];
+      const exemple = [ 
+        {label: 'Accueil', link: '@Home', access: 'HMI Monitor' },
+        {label: 'Menu A', link: 'Menu_Test_A', access: 'HMI Administrator', dropdown: [
+                { label: 'Menu A-1', link: 'Menu_Test_A_1', access: 'HMI Administrator', dropdown: [
+                        {label: 'Menu A-1-1', link: 'Menu_Test_A_1_1', access: 'HMI Administrator'},
+                        {label: 'Menu A-1-2', link: 'Menu_Test_A_1_2', access: 'HMI Administrator'},
+                        {label: 'Menu A-1-3', link: 'Menu_Test_A_1_3', access: 'HMI Administrator'},
+                        {label: 'Menu A-1-4', link: 'Menu_Test_A_1_4', access: 'HMI Administrator'},
+                        {label: 'Menu A-1-5', link: 'Menu_Test_A_1_5', access: 'HMI Administrator'},
+                        {label: 'Menu A-1-6', link: 'Menu_Test_A_1_6', access: 'HMI Administrator', dropdown :[
+                              { label: 'Menu A-2', link: 'Menu_Test_A_2', access: 'HMI Administrator'},
+                              { label: 'Menu A-3', link: 'Menu_Test_A_3', access: 'HMI Administrator'},
+                              { label: 'Menu A-4', link: 'Menu_Test_A_4', access: 'HMI Administrator'},
+                              { label: 'Menu A-5', link: 'Menu_Test_A_5', access: 'HMI Administrator'},
+                              { label: 'Menu A-6', link: 'Menu_Test_A_6', access: 'HMI Administrator'},
+                              { label: 'Menu A-7', link: 'Menu_Test_A_7', access: 'HMI Administrator'},
+                              { label: 'Menu A-8', link: 'Menu_Test_A_8', access: 'HMI Administrator'},],},],},
+                { label: 'Menu A-2', link: 'Menu_Test_A_2', access: 'HMI Administrator'},
+                { label: 'Menu A-3', link: 'Menu_Test_A_3', access: 'HMI Administrator'},
+                { label: 'Menu A-4', link: 'Menu_Test_A_4', access: 'HMI Administrator'},
+                { label: 'Menu A-5', link: 'Menu_Test_A_5', access: 'HMI Administrator'},
+                { label: 'Menu A-6', link: 'Menu_Test_A_6', access: 'HMI Administrator'},
+                { label: 'Menu A-7', link: 'Menu_Test_A_7', access: 'HMI Administrator'},
+                { label: 'Menu A-8', link: 'Menu_Test_A_8', access: 'HMI Administrator'},],},
+        {label: 'Menu B', link: 'Menu_Test_B', access: 'HMI Administrator'},
+        {label: 'Menu C', link: 'Menu_Test_C', access: 'HMI Administrator', dropdown: [
+                { label: 'Menu C-1', link: 'Menu_Test_C_1', access: 'HMI Administrator',dropdown: [
+                        {label: 'Menu C-1-1', link: 'Menu_Test_C_1_1', access: 'HMI Administrator'},],},
+                { label: 'Menu C-2', link: 'Menu_Test_C_2', access: 'HMI Administrator',dropdown: [
+                        {label: 'Menu C-2-1', link: 'Menu_Test_C_2_1', access: 'HMI Administrator'},],},],},
+          {label: 'Menu D', link: 'Menu_Test_D', access: 'HMI Administrator'},  
+    ];
 
-        //? MENU TEST - THOMAS 2023-04                
-        const thomas = [ {label: 'Accueil', link: '@Home', access: 'HMI Monitor' }];
-
-
-      const menuID = Tags("RuntimeSettings.menuID").Read();
+      const menuID = Tags("LocalSessionSettings.menuID").Read();
       let menu = null;
       switch (menuID) {
         case 1:
@@ -123,16 +133,20 @@ export function configNavigation() {
             logTrace(configNavigation.name, 'debug', `menu = basic`);
             break;
         case 2:
+          menu = gardien;
+          logTrace(configNavigation.name, 'debug',`menu = gardien`);
+            break;
+        case 4:
+          menu = production_1;
+          logTrace(configNavigation.name, 'debug',`menu = production_1`);
+            break;
+        case 8:
           menu = exemple;
           logTrace(configNavigation.name, 'debug',`menu = exemple`);
             break;
-        case 4:
-          menu = thomas;
-          logTrace(configNavigation.name, 'debug',`menu = thomas`);
-            break;
         default:
-            menu = basic;
-            logTrace(configNavigation.name, 'debug', `menu = basic`);
+          menu = basic;
+          logTrace(configNavigation.name, 'debug', `menu = basic`);
             break;
         }
 
@@ -410,7 +424,7 @@ export async function setSubNavigation(linkToFind) {
       if ('dropdown' in thisItem) {
           const thisDropDown = thisItem.dropdown;
           logTrace(setSubNavigation.name,'debug',`Il y a un sous-menu dans  ${linkToFind} `);//:  ${JSON.stringify(thisDropDown)}
-          const thisPopup = UI.SysFct.OpenScreenInPopup(`POP_SubNavigation`,screenName,false,``,0, 60 ,true,undefined);
+          const thisPopup = UI.SysFct.OpenScreenInPopup(`POP_SubNavigation`,screenName,false,``,0, 60 ,false,undefined);
 
     
           for (let i = 0; i < maxBP; i++) {
@@ -470,9 +484,7 @@ export async function setSubNavigation(linkToFind) {
       throw error;
   }
 }
-
 //?-------------------------------------------------------------------------
-
 export function waitForUiElement(elementPath, timeout = 10000){
 /**
  * Suivi des modifications :
@@ -506,9 +518,7 @@ export function waitForUiElement(elementPath, timeout = 10000){
     }, 100); // Vérifie toutes les 100 millisecondes 
   });
 }
-
 //?-------------------------------------------------------------------------
-
 
 
 
